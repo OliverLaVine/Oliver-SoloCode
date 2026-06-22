@@ -1,0 +1,29 @@
+{
+  "name": "process-memory-monitor-frontend",
+  "version": "1.0.0",
+  "description": "进程内存监控系统前端",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "vue": "^2.7.14",
+    "vue-router": "^3.6.5",
+    "axios": "^1.4.0",
+    "element-ui": "^2.15.13",
+    "echarts": "^5.4.2"
+  },
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "vue-template-compiler": "^2.7.14",
+    "sass": "^1.62.1",
+    "sass-loader": "^10.4.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
