@@ -1,0 +1,467 @@
+# ============================================
+# IDE & Editors
+# ============================================
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+
+# --- Trae (基于 VS Code) ---
+.trae/
+
+# --- Eclipse ---
+.classpath
+.project
+.settings/
+.metadata/
+*.springBeans
+
+# --- NetBeans ---
+nbproject/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# --- Sublime Text ---
+*.sublime-project
+*.sublime-workspace
+
+# --- Vim ---
+*.swp
+*.swo
+*~
+.*.swp
+.*.swo
+
+# --- Emacs ---
+*~
+\#*\#
+.\#*
+
+# --- Atom ---
+.atom/
+
+# --- JetBrains Fleet ---
+.fleet/
+
+# --- Cursor ---
+.cursor/
+
+# --- Windsurf ---
+.windsurf/
+
+# ============================================
+# OS Generated Files
+# ============================================
+
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.AppleDB
+.AppleDesktop
+
+# --- Windows ---
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# --- Linux ---
+*~
+.directory
+.Trash-*
+
+# ============================================
+# Node.js / Frontend
+# ============================================
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Next.js
+.next/
+out/
+
+# Nuxt.js
+.nuxt/
+.output/
+
+# Gatsby
+.cache/
+public/
+
+# SvelteKit
+.svelte-kit/
+
+# Vite
+.vite/
+
+# Parcel
+.parcel-cache/
+.cache/
+
+# Turbo
+.turbo/
+
+# Storybook
+storybook-static/
+
+# Lerna
+lerna-debug.log*
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.yarn/cache/
+.yarn/install-state.gz
+
+# NPM
+npm-debug.log*
+
+# ============================================
+# Python
+# ============================================
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+*.egg-info/
+*.egg
+build/
+dist/
+eggs/
+sdist/
+wheels/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Pytest
+.pytest_cache/
+.cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Poetry
+poetry.lock
+
+# Pipenv
+Pipfile.lock
+
+# pyenv
+.python-version
+
+# ============================================
+# Java / JVM
+# ============================================
+
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+build/
+
+# ============================================
+# Go
+# ============================================
+
+*.exe
+*.test
+*.out
+vendor/
+go.work
+go.work.sum
+
+# ============================================
+# Rust
+# ============================================
+
+target/
+*.rs.bk
+*.pdb
+
+# ============================================
+# C / C++
+# ============================================
+
+*.o
+*.obj
+*.dll
+*.so
+*.dylib
+*.exe
+*.out
+*.app
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+
+# ============================================
+# .NET / C#
+# ============================================
+
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.docstates
+*.userosscache
+*.sln.docstates
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]pp_[Dd]ata/
+*.nupkg
+packages/
+
+# ============================================
+# Ruby
+# ============================================
+
+*.gem
+*.rbc
+.bundle/
+vendor/bundle
+Gemfile.lock
+
+# ============================================
+# PHP
+# ============================================
+
+vendor/
+composer.lock
+
+# ============================================
+# Dart / Flutter
+# ============================================
+
+.dart_tool/
+.packages
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+*.ipr
+*.iws
+
+# ============================================
+# Kotlin
+# ============================================
+
+*.kotlin_module
+
+# ============================================
+# Swift / Xcode
+# ============================================
+
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+Pods/
+.build/
+
+# ============================================
+# Docker
+# ============================================
+
+.docker/
+docker-compose.override.yml
+
+# ============================================
+# Terraform
+# ============================================
+
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# ============================================
+# Kubernetes
+# ============================================
+
+*.kubeconfig
+*.kube/config
+
+# ============================================
+# Environment & Secrets
+# ============================================
+
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets.yml
+credentials.json
+service-account.json
+*.secret
+
+# ============================================
+# Logs & Temp
+# ============================================
+
+logs/
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+tmp/
+temp/
+*.bak
+*.cache
+
+# ============================================
+# Database
+# ============================================
+
+*.sqlite
+*.sqlite3
+*.db
+*.mdb
+*.accdb
+dumps/
+
+# ============================================
+# Archives / Compressed
+# ============================================
+
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+
+# ============================================
+# Testing / Coverage
+# ============================================
+
+coverage/
+.nyc_output/
+*.lcov
+*.gcda
+*.gcno
+*.gcov
+coverage.lcov
+
+# ============================================
+# Misc
+# ============================================
+
+# Lock files (uncomment if needed)
+# package-lock.json
+# yarn.lock
+
+# Local config overrides
+*.local
+*.local.*
+!.local.example
