@@ -2,12 +2,15 @@
 chcp 65001 >nul
 title 进程内存监控系统 - 前端启动
 
+set "PROJECT_ROOT=%~dp0.."
+set "LOG_DIR=%PROJECT_ROOT%\logs"
+
 echo ============================================================
 echo          进程内存监控系统 - 前端服务启动
 echo ============================================================
 echo.
 
-cd /d "%~dp0..\frontend"
+cd /d "%PROJECT_ROOT%\frontend"
 
 where node >nul 2>nul
 if %errorlevel% neq 0 (
@@ -39,4 +42,8 @@ echo.
 
 npm run serve
 
-pause
+if %errorlevel% neq 0 (
+    echo.
+    echo [错误] 前端服务异常退出！
+    pause
+)

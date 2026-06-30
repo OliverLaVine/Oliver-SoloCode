@@ -23,8 +23,8 @@ echo.
 set /p MYSQL_USER=用户名 (默认 root): 
 if "%MYSQL_USER%"=="" set MYSQL_USER=root
 
-set /p MYSQL_PASS=密码 (默认 root): 
-if "%MYSQL_PASS%"=="" set MYSQL_PASS=root
+set /p MYSQL_PASS=密码 (默认 123456): 
+if "%MYSQL_PASS%"=="" set MYSQL_PASS=123456
 
 set /p MYSQL_HOST=主机地址 (默认 localhost): 
 if "%MYSQL_HOST%"=="" set MYSQL_HOST=localhost

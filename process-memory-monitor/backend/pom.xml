@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>3.3.6</version>
         <relativePath/>
     </parent>
 
@@ -18,8 +18,8 @@
     <description>Windows进程内存监控系统</description>
 
     <properties>
-        <java.version>1.8</java.version>
-        <oshi.version>6.4.11</oshi.version>
+        <java.version>17</java.version>
+        <oshi.version>6.6.5</oshi.version>
     </properties>
 
     <dependencies>
@@ -50,9 +50,8 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
 
         <dependency>
