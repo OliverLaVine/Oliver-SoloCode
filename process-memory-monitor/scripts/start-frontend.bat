@@ -1,5 +1,4 @@
 @echo off
-setlocal enabledelayedexpansion
 title Process Memory Monitor - Frontend
 
 set "SCRIPT_DIR=%~dp0"
@@ -47,7 +46,6 @@ npm run serve
 if %errorlevel% neq 0 (
     echo.
     echo [ERROR] Frontend exited abnormally!
+    echo.
     pause
 )
-
-endlocal

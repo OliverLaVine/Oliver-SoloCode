@@ -1,5 +1,4 @@
 @echo off
-setlocal enabledelayedexpansion
 title Process Memory Monitor - All in One
 
 set "SCRIPT_DIR=%~dp0"
@@ -29,6 +28,7 @@ where java >nul 2>nul
 if %errorlevel% neq 0 (
     echo [ERROR] Java not found. Please install JDK 17 or higher.
     echo [ERROR] Java not found. >> "%STARTUP_LOG%"
+    echo.
     pause
     exit /b 1
 )
@@ -41,6 +41,7 @@ where mvn >nul 2>nul
 if %errorlevel% neq 0 (
     echo [ERROR] Maven not found. Please install Maven and add to PATH.
     echo [ERROR] Maven not found. >> "%STARTUP_LOG%"
+    echo.
     pause
     exit /b 1
 ) else (
@@ -52,6 +53,7 @@ where node >nul 2>nul
 if %errorlevel% neq 0 (
     echo [ERROR] Node.js not found. Please install Node.js.
     echo [ERROR] Node.js not found. >> "%STARTUP_LOG%"
+    echo.
     pause
     exit /b 1
 )
@@ -65,36 +67,56 @@ echo.
 echo [2/5] Configuring database connection...
 echo.
 
-set MYSQL_USER=root
-set MYSQL_PASS=123456
+set "MYSQL_USER=root"
+set "MYSQL_PASS=123456"
 
-set /p MYSQL_USER_INPUT=MySQL username (default root, press Enter to skip):
-if not "!MYSQL_USER_INPUT!"=="" set "MYSQL_USER=!MYSQL_USER_INPUT!"
+set /p "MYSQL_USER_INPUT=MySQL username (default root, press Enter to skip): "
+if defined MYSQL_USER_INPUT (
+    if not "%MYSQL_USER_INPUT%"=="" set "MYSQL_USER=%MYSQL_USER_INPUT%"
+)
 
-set /p MYSQL_PASS_INPUT=MySQL password (default 123456, press Enter to skip):
-if not "!MYSQL_PASS_INPUT!"=="" set "MYSQL_PASS=!MYSQL_PASS_INPUT!"
+set /p "MYSQL_PASS_INPUT=MySQL password (default 123456, press Enter to skip): "
+if defined MYSQL_PASS_INPUT (
+    if not "%MYSQL_PASS_INPUT%"=="" set "MYSQL_PASS=%MYSQL_PASS_INPUT%"
+)
 
-echo MySQL user: !MYSQL_USER! >> "%STARTUP_LOG%"
-echo [OK] Database configured. Username: !MYSQL_USER!
+echo MySQL user: %MYSQL_USER% >> "%STARTUP_LOG%"
+echo [OK] Database configured. Username: %MYSQL_USER%
 
 echo.
 echo [3/5] Initializing database...
 echo.
 
-set "SQL_FILE=%PROJECT_ROOT%\sql\init.sql"
-if exist "%SQL_FILE%" (
-    echo Initializing database...
-    mysql -u!MYSQL_USER! -p!MYSQL_PASS! < "%SQL_FILE%" 2>>"%STARTUP_LOG%"
-    if !errorlevel! equ 0 (
-        echo [OK] Database initialized successfully
-        echo [OK] Database initialized successfully >> "%STARTUP_LOG%"
-    ) else (
-        echo [WARN] Database init failed (maybe already exists). See log: %STARTUP_LOG%
-        echo [WARN] Database init failed >> "%STARTUP_LOG%"
-    )
+where mysql >nul 2>nul
+if %errorlevel% neq 0 (
+    echo [WARN] MySQL client not found in PATH. Skipping database init.
+    echo [WARN] Please run init-database.bat manually to init database.
+    echo [WARN] MySQL client not found >> "%STARTUP_LOG%"
+    echo.
+    echo Press any key to continue without database init...
+    pause >nul
 ) else (
-    echo [WARN] SQL file not found: %SQL_FILE%
-    echo [WARN] SQL file not found >> "%STARTUP_LOG%"
+    set "SQL_FILE=%PROJECT_ROOT%\sql\init.sql"
+    if exist "%SQL_FILE%" (
+        echo Initializing database...
+        mysql -u%MYSQL_USER% -p%MYSQL_PASS% < "%SQL_FILE%" 2>>"%STARTUP_LOG%"
+        if %errorlevel% equ 0 (
+            echo [OK] Database initialized successfully
+            echo [OK] Database initialized successfully >> "%STARTUP_LOG%"
+        ) else (
+            echo [WARN] Database init failed (maybe already exists). See log: %STARTUP_LOG%
+            echo [WARN] Database init failed >> "%STARTUP_LOG%"
+            echo.
+            echo Press any key to continue...
+            pause >nul
+        )
+    ) else (
+        echo [WARN] SQL file not found: %SQL_FILE%
+        echo [WARN] SQL file not found >> "%STARTUP_LOG%"
+        echo.
+        echo Press any key to continue...
+        pause >nul
+    )
 )
 
 echo.
@@ -111,8 +133,11 @@ if %errorlevel% neq 0 (
     echo [ERROR] Backend build FAILED! Check log: %STARTUP_LOG%
     echo [ERROR] Backend build FAILED >> "%STARTUP_LOG%"
     echo.
-    echo === Last 30 lines of build log ===
-    powershell -Command "Get-Content '%STARTUP_LOG%' -Tail 30"
+    echo ============================================================
+    echo   Last 40 lines of build log:
+    echo ============================================================
+    powershell -Command "Get-Content '%STARTUP_LOG%' -Tail 40"
+    echo ============================================================
     echo.
     pause
     exit /b 1
@@ -122,8 +147,8 @@ echo [OK] Backend build succeeded >> "%STARTUP_LOG%"
 
 echo.
 echo Starting backend (port 8080)...
-set "BACKEND_CMD=set LOG_HOME=%LOG_DIR%^& set MYSQL_USER=!MYSQL_USER!^& set MYSQL_PASS=!MYSQL_PASS!^& java -jar target\process-memory-monitor-1.0.0.jar"
-start "Backend - Process Monitor" cmd /k "!BACKEND_CMD!"
+set "ESCAPED_LOG_DIR=%LOG_DIR:\=\\%"
+start "Backend - Process Monitor" cmd /k "set LOG_HOME=%LOG_DIR%& set MYSQL_USER=%MYSQL_USER%& set MYSQL_PASS=%MYSQL_PASS%& java -jar target\process-memory-monitor-1.0.0.jar"
 
 echo Waiting for backend to start (~15 seconds)...
 timeout /t 15 /nobreak >nul
@@ -139,6 +164,7 @@ if not exist "node_modules" (
     call npm install >> "%STARTUP_LOG%" 2>&1
     if %errorlevel% neq 0 (
         echo [ERROR] Frontend dependencies install FAILED! Check log: %STARTUP_LOG%
+        echo.
         pause
         exit /b 1
     )
@@ -173,4 +199,3 @@ echo.
 echo [%date% %time%] Startup complete >> "%STARTUP_LOG%"
 
 pause
-endlocal

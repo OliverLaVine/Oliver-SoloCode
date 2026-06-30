@@ -1,5 +1,4 @@
 @echo off
-setlocal enabledelayedexpansion
 title Process Memory Monitor - Backend
 
 set "SCRIPT_DIR=%~dp0"
@@ -20,18 +19,23 @@ cd /d "%PROJECT_ROOT%\backend"
 where java >nul 2>nul
 if %errorlevel% neq 0 (
     echo [ERROR] Java not found. Please install JDK 17 or higher.
+    echo.
     pause
     exit /b 1
 )
 
-set MYSQL_USER=root
-set MYSQL_PASS=123456
+set "MYSQL_USER=root"
+set "MYSQL_PASS=123456"
 
-set /p MYSQL_USER_INPUT=MySQL username (default root, press Enter):
-if not "!MYSQL_USER_INPUT!"=="" set "MYSQL_USER=!MYSQL_USER_INPUT!"
+set /p "MYSQL_USER_INPUT=MySQL username (default root, press Enter): "
+if defined MYSQL_USER_INPUT (
+    if not "%MYSQL_USER_INPUT%"=="" set "MYSQL_USER=%MYSQL_USER_INPUT%"
+)
 
-set /p MYSQL_PASS_INPUT=MySQL password (default 123456, press Enter):
-if not "!MYSQL_PASS_INPUT!"=="" set "MYSQL_PASS=!MYSQL_PASS_INPUT!"
+set /p "MYSQL_PASS_INPUT=MySQL password (default 123456, press Enter): "
+if defined MYSQL_PASS_INPUT (
+    if not "%MYSQL_PASS_INPUT%"=="" set "MYSQL_PASS=%MYSQL_PASS_INPUT%"
+)
 
 echo.
 echo [1/2] Building project...
@@ -41,10 +45,14 @@ call mvn clean package -DskipTests > "%BUILD_LOG%" 2>&1
 if %errorlevel% neq 0 (
     echo [ERROR] Build FAILED!
     echo.
-    echo === Last 30 lines of build log ===
-    powershell -Command "Get-Content '%BUILD_LOG%' -Tail 30"
+    echo ============================================================
+    echo   Last 40 lines of build log:
+    echo ============================================================
+    powershell -Command "Get-Content '%BUILD_LOG%' -Tail 40"
+    echo ============================================================
     echo.
     echo Full log: %BUILD_LOG%
+    echo.
     pause
     exit /b 1
 )
@@ -58,15 +66,14 @@ echo App logs:    %LOG_DIR%
 echo Press Ctrl+C to stop
 echo.
 
-set LOG_HOME=%LOG_DIR%
-set MYSQL_USER=!MYSQL_USER!
-set MYSQL_PASS=!MYSQL_PASS!
+set "LOG_HOME=%LOG_DIR%"
+set "MYSQL_USER=%MYSQL_USER%"
+set "MYSQL_PASS=%MYSQL_PASS%"
 java -jar target\process-memory-monitor-1.0.0.jar
 
 if %errorlevel% neq 0 (
     echo.
     echo [ERROR] Backend exited abnormally! Check logs: %LOG_DIR%
+    echo.
     pause
 )
-
-endlocal

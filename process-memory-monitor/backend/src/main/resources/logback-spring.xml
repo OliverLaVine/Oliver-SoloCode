@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <timestamp key="LOG_DATE" datePattern="yyyy-MM-dd"/>
+
     <property name="LOG_HOME" value="${LOG_HOME:-./logs}"/>
     <property name="APP_NAME" value="process-monitor"/>
 
@@ -15,7 +17,7 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/${APP_NAME}.log</file>
+        <file>${LOG_HOME}/${APP_NAME}.${LOG_DATE}.log</file>
         <append>true</append>
         <encoder>
             <pattern>${PATTERN}</pattern>
@@ -29,7 +31,7 @@
     </appender>
 
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/${APP_NAME}-error.log</file>
+        <file>${LOG_HOME}/${APP_NAME}-error.${LOG_DATE}.log</file>
         <append>true</append>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>

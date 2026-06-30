@@ -1,5 +1,4 @@
 @echo off
-setlocal enabledelayedexpansion
 title Process Memory Monitor - Stop All
 
 echo.
@@ -31,4 +30,3 @@ echo ============================================================
 echo.
 
 pause
-endlocal
